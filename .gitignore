@@ -1,0 +1,33 @@
+# Node
+node_modules/
+frontend/dist/
+frontend/dist-ssr/
+*.local
+npm-debug.log*
+
+# Python
+backend/.venv/
+backend/__pycache__/
+backend/**/__pycache__/
+*.pyc
+
+# Env / secrets
+.env
+frontend/.env
+backend/.env
+!.env.example
+!frontend/.env.example
+!backend/.env.example
+
+# DB
+backend/data/*.db
+backend/data/*.sqlite3
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Scratch
+.scratch/
