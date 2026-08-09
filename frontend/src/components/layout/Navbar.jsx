@@ -100,7 +100,7 @@ export function Navbar() {
       >
         <nav className="container-page flex h-16 items-center justify-between">
           <Link to="/" aria-label="PulseGuard AI home" className="shrink-0">
-            <Wordmark tone="light" />
+            <Wordmark />
           </Link>
 
           <div className="flex items-center gap-3">

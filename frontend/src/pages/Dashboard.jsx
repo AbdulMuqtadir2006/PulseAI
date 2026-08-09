@@ -76,10 +76,10 @@ export default function Dashboard() {
             <p className="flex items-center gap-2 font-semibold text-pulse">
               <ShieldAlert size={18} /> Critical reading — emergency contacts notified
             </p>
-            <ul className="mt-2 space-y-1 text-sm text-slate-300">
+            <ul className="mt-2 space-y-1 text-sm text-white/70">
               {alertBanner.map((a, i) => (
                 <li key={i}>
-                  {a.contact}: <span className="font-mono text-xs uppercase text-slate-400">{a.status}</span> — {a.detail}
+                  {a.contact}: <span className="font-mono text-xs uppercase text-white/55">{a.status}</span> — {a.detail}
                 </li>
               ))}
             </ul>
@@ -110,7 +110,7 @@ export default function Dashboard() {
       ) : (
         <>
           <div className="mb-6">
-            <p className="mb-3 font-mono text-xs text-slate-500">Latest reading — {formatTimestamp(reading.timestamp)}</p>
+            <p className="mb-3 font-mono text-xs text-white/40">Latest reading — {formatTimestamp(reading.timestamp)}</p>
             <RiskGauge
               riskScore={reading.risk.risk_score}
               riskLevel={reading.risk.risk_level}

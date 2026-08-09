@@ -38,7 +38,7 @@ function TiltCard({ feature }) {
           <Icon size={26} strokeWidth={1.75} />
         </span>
         <h3 className="mt-6 font-display text-xl font-semibold text-white">{feature.name}</h3>
-        <p className="mt-3 text-sm leading-relaxed text-slate-400">{feature.copy}</p>
+        <p className="mt-3 text-sm leading-relaxed text-white/55">{feature.copy}</p>
         <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-teal/0 blur-3xl transition-colors duration-500 group-hover:bg-teal/25" />
       </motion.div>
     </motion.div>

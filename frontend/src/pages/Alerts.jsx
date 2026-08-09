@@ -7,7 +7,7 @@ import { formatTimestamp } from "../lib/format";
 import { staggerContainer, staggerItem } from "../components/ui/Reveal";
 
 const STATUS_COLOR = {
-  simulated: "text-slate-400 border-white/10 bg-white/[0.03]",
+  simulated: "text-white/55 border-white/10 bg-white/[0.03]",
   sent: "text-status-good border-status-good/30 bg-status-good/10",
   failed: "text-pulse border-pulse/30 bg-pulse/10",
 };
@@ -29,8 +29,8 @@ export default function Alerts() {
         <div className="glass-card h-40 animate-pulse" />
       ) : alerts.length === 0 ? (
         <div className="glass-card flex flex-col items-center gap-3 p-12 text-center">
-          <Inbox className="text-slate-500" size={32} />
-          <p className="text-slate-400">No alerts yet. Simulate a critical reading from the dashboard to see one here.</p>
+          <Inbox className="text-white/40" size={32} />
+          <p className="text-white/55">No alerts yet. Simulate a critical reading from the dashboard to see one here.</p>
         </div>
       ) : (
         <motion.ul className="space-y-4" variants={staggerContainer} initial="hidden" animate="show">
@@ -43,14 +43,14 @@ export default function Alerts() {
                   </span>
                   <div>
                     <p className="font-semibold text-white">{a.recipient}</p>
-                    <p className="font-mono text-xs text-slate-500">{formatTimestamp(a.created_at)}</p>
+                    <p className="font-mono text-xs text-white/40">{formatTimestamp(a.created_at)}</p>
                   </div>
                 </div>
                 <span className={`rounded-full border px-3 py-1 font-mono text-[11px] uppercase tracking-wider ${STATUS_COLOR[a.status] ?? STATUS_COLOR.simulated}`}>
                   {a.status} · {a.channel}
                 </span>
               </div>
-              <p className="mt-3 text-sm leading-relaxed text-slate-300">{a.message}</p>
+              <p className="mt-3 text-sm leading-relaxed text-white/70">{a.message}</p>
             </motion.li>
           ))}
         </motion.ul>

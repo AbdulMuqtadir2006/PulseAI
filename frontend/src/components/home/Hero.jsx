@@ -22,7 +22,7 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={0.16}>
-            <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-slate-400">
+            <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-white/55">
               PulseGuard AI watches your heart rate, HRV, SpO2, and blood pressure in real time,
               scores your cardiac risk against reference ranges, and escalates to your emergency
               contact the moment a reading turns critical.
@@ -41,7 +41,7 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={0.32}>
-            <p className="mt-8 max-w-md text-xs leading-relaxed text-slate-500">
+            <p className="mt-8 max-w-md text-xs leading-relaxed text-white/40">
               Not a medical device. This is a research prototype for exploring continuous cardiac
               monitoring — it has not been clinically validated.
             </p>
@@ -54,7 +54,7 @@ export function Hero() {
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
           className="relative h-[320px] sm:h-[420px] lg:h-[480px]"
         >
-          <div className="pointer-events-none absolute inset-0 rounded-[2rem] bg-gradient-to-br from-pulse/10 via-violet/10 to-teal/10 blur-2xl" />
+          <div className="pointer-events-none absolute inset-0 rounded-[2rem] bg-gradient-to-br from-pulse/10 via-transparent to-teal/10 blur-2xl" />
           <HeroPulse3D className="h-full w-full" />
         </motion.div>
       </div>

@@ -3,11 +3,12 @@ import * as THREE from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 
-// Brand walk: crimson -> violet -> teal.
+// The two brand colors only — pulse weighted lower since it's the accent,
+// not a background texture color.
 const PALETTE = [
   [1.0, 0.23, 0.36], // pulse crimson
-  [0.55, 0.36, 0.96], // violet
-  [0.13, 0.9, 0.72], // teal
+  [0.12, 0.85, 0.67], // teal
+  [0.12, 0.85, 0.67], // teal (weighted 2:1 so the field reads cooler than the accent)
 ];
 
 function Field({ count, reducedMotion }) {

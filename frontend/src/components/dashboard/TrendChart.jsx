@@ -18,7 +18,7 @@ function ChartTooltip({ active, payload, label, unit }) {
   if (!active || !payload?.length) return null;
   return (
     <div className="rounded-xl border border-teal/20 bg-ink/95 px-3 py-2 shadow-card backdrop-blur">
-      <p className="font-mono text-[11px] text-slate-400">{label}</p>
+      <p className="font-mono text-[11px] text-white/55">{label}</p>
       <p className="font-mono text-sm font-semibold text-white">
         {payload[0].value}
         {unit ? ` ${unit}` : ""}
@@ -41,7 +41,7 @@ export function TrendChart({ metricKey, data, range, unit, status }) {
     <div className="glass-card p-5">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="font-display text-base font-semibold text-white">{meta.label}</h3>
-        <span className="font-mono text-[11px] text-slate-500">
+        <span className="font-mono text-[11px] text-white/40">
           ref {range[0]}–{range[1]}
           {unit ? ` ${unit}` : ""}
         </span>

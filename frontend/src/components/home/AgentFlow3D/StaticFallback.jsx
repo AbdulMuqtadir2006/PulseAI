@@ -18,7 +18,7 @@ export function StaticFallback() {
           </div>
         ))}
       </div>
-      <p className="max-w-sm text-center text-xs text-slate-500">
+      <p className="max-w-sm text-center text-xs text-white/40">
         Your browser can't render the interactive 3D view — showing the pipeline order instead.
       </p>
     </div>

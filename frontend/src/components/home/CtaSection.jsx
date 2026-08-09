@@ -11,7 +11,7 @@ export function CtaSection() {
       />
       <div className="container-page relative text-center">
         <Reveal>
-          <p id="disclaimer" className="mx-auto mb-14 max-w-2xl text-pretty text-sm leading-relaxed text-slate-500">
+          <p id="disclaimer" className="mx-auto mb-14 max-w-2xl text-pretty text-sm leading-relaxed text-white/40">
             PulseGuard AI is a research-stage prototype exploring what continuous biometric
             monitoring could do for cardiac risk — it is not a diagnostic device, has not been
             clinically validated, and must never be relied on in a real emergency.

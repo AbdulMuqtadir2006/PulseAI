@@ -70,8 +70,8 @@ export default function Contacts() {
             <div className="glass-card h-40 animate-pulse" />
           ) : contacts.length === 0 ? (
             <div className="glass-card flex flex-col items-center gap-3 p-12 text-center">
-              <UserRound className="text-slate-500" size={32} />
-              <p className="text-slate-400">No emergency contacts yet — add one to enable escalation.</p>
+              <UserRound className="text-white/40" size={32} />
+              <p className="text-white/55">No emergency contacts yet — add one to enable escalation.</p>
             </div>
           ) : (
             <motion.ul className="space-y-3" variants={staggerContainer} initial="hidden" animate="show">
@@ -87,7 +87,7 @@ export default function Contacts() {
                     </span>
                     <div>
                       <p className="font-semibold text-white">{c.name}</p>
-                      <p className="font-mono text-xs text-slate-400">
+                      <p className="font-mono text-xs text-white/55">
                         {c.phone}
                         {c.relationship ? ` · ${c.relationship}` : ""}
                       </p>
@@ -97,7 +97,7 @@ export default function Contacts() {
                     type="button"
                     onClick={() => remove(c.id)}
                     aria-label={`Remove ${c.name}`}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-pulse/10 hover:text-pulse"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full text-white/40 transition-colors hover:bg-pulse/10 hover:text-pulse"
                   >
                     <Trash2 size={16} />
                   </button>

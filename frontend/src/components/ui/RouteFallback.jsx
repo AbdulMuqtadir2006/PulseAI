@@ -6,7 +6,7 @@ export function RouteFallback() {
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-pulse/40" />
           <span className="relative inline-flex h-10 w-10 rounded-full border-2 border-pulse/30 border-t-pulse animate-spin" />
         </span>
-        <span className="font-mono text-xs uppercase tracking-[0.24em] text-slate-500">Loading</span>
+        <span className="font-mono text-xs uppercase tracking-[0.24em] text-white/40">Loading</span>
       </div>
     </div>
   );

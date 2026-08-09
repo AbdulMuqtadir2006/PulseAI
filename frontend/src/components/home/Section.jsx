@@ -20,7 +20,7 @@ export function Section({ id, eyebrow, title, intro, children, className = "" })
             )}
             {intro && (
               <Reveal delay={0.1}>
-                <p className="mt-5 text-pretty text-base leading-relaxed text-slate-400 sm:text-lg">{intro}</p>
+                <p className="mt-5 text-pretty text-base leading-relaxed text-white/55 sm:text-lg">{intro}</p>
               </Reveal>
             )}
           </div>

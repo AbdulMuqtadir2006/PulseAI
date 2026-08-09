@@ -40,12 +40,12 @@ export default function Signup() {
       >
         <div className="mb-8 flex justify-center">
           <Link to="/">
-            <Wordmark tone="light" />
+            <Wordmark />
           </Link>
         </div>
         <div className="glass-card p-8">
           <h1 className="font-display text-2xl font-bold text-white">Create your account</h1>
-          <p className="mt-1 text-sm text-slate-400">Start monitoring in the demo dashboard.</p>
+          <p className="mt-1 text-sm text-white/55">Start monitoring in the demo dashboard.</p>
 
           <form onSubmit={submit} className="mt-6 space-y-4">
             <Field label="Name" value={form.name} onChange={set("name")} autoComplete="name" required />
@@ -80,7 +80,7 @@ export default function Signup() {
             </button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-slate-400">
+          <p className="mt-6 text-center text-sm text-white/55">
             Already have an account?{" "}
             <Link to="/login" className="font-semibold text-teal hover:underline">
               Log in

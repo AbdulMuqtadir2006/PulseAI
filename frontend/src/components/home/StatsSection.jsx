@@ -46,14 +46,14 @@ export function StatsSection() {
               {s.display ? s.display : <AnimatedNumber value={s.value} />}
               {s.suffix}
             </p>
-            <p className="mt-3 text-sm leading-relaxed text-slate-300">{s.label}</p>
-            <p className="mt-2 font-mono text-[11px] uppercase tracking-wider text-slate-500">{s.note}</p>
+            <p className="mt-3 text-sm leading-relaxed text-white/70">{s.label}</p>
+            <p className="mt-2 font-mono text-[11px] uppercase tracking-wider text-white/40">{s.note}</p>
           </motion.div>
         ))}
       </motion.div>
 
       <Reveal delay={0.2}>
-        <p className="mx-auto mt-10 max-w-2xl text-center text-xs leading-relaxed text-slate-500">
+        <p className="mx-auto mt-10 max-w-2xl text-center text-xs leading-relaxed text-white/40">
           These figures describe cardiovascular disease broadly, not results from PulseGuard AI
           itself — this is a research prototype, not a clinically validated product.
         </p>

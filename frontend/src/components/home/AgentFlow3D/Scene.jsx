@@ -47,7 +47,7 @@ function NodeMarker({ node, position, reducedMotion }) {
             className={`rounded-full border px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-white backdrop-blur-md ${isManager ? "font-bold" : ""}`}
             style={{
               borderColor: `${node.color}${isManager ? "aa" : "55"}`,
-              background: isManager ? "rgba(139,92,246,0.18)" : "rgba(10,7,16,0.6)",
+              background: isManager ? "rgba(242,169,62,0.16)" : "rgba(10,7,16,0.6)",
             }}
           >
             {node.label}
@@ -186,10 +186,10 @@ export function AgentFlowScene({ reducedMotion = false, bus = null }) {
         args={[bounds.maxX - bounds.minX + 6, 6]}
         cellSize={0.5}
         cellThickness={0.5}
-        cellColor="#22E6B8"
+        cellColor="#1FD8AA"
         sectionSize={2.5}
         sectionThickness={0.8}
-        sectionColor="#8B5CF6"
+        sectionColor="#FF3B5C"
         fadeDistance={12}
         fadeStrength={1.5}
         infiniteGrid={false}

@@ -38,7 +38,7 @@ export function PageShell({ eyebrow, title, intro, children, wide = false }) {
             )}
             {intro && (
               <motion.p
-                className="mt-4 text-pretty text-lg leading-relaxed text-slate-400"
+                className="mt-4 text-pretty text-lg leading-relaxed text-white/55"
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.55, ease: EASE, delay: 0.12 }}

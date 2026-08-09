@@ -29,18 +29,18 @@ export function RiskGauge({ riskScore, riskLevel, narrative, recommendation }) {
         </svg>
         <div className="absolute flex flex-col items-center">
           <span className="font-mono text-3xl font-semibold tabular-nums text-white">{riskScore}</span>
-          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500">Risk / 100</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">Risk / 100</span>
         </div>
       </div>
 
       <div className="flex-1">
-        <p className="eyebrow text-slate-400">Cardiac Risk</p>
+        <p className="eyebrow text-white/55">Cardiac Risk</p>
         <p className="mt-2 font-display text-2xl font-bold" style={{ color: meta.color }}>
           {meta.label}
         </p>
-        {narrative && <p className="mt-3 text-sm leading-relaxed text-slate-300">{narrative}</p>}
+        {narrative && <p className="mt-3 text-sm leading-relaxed text-white/70">{narrative}</p>}
         {recommendation && (
-          <p className="mt-3 rounded-xl border border-white/10 bg-white/[0.03] p-3 text-sm leading-relaxed text-slate-200">
+          <p className="mt-3 rounded-xl border border-white/10 bg-white/[0.03] p-3 text-sm leading-relaxed text-white/85">
             {recommendation}
           </p>
         )}
