@@ -3,11 +3,21 @@ from __future__ import annotations
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from slowapi import _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
 
 from . import config, db
 from .routers import alerts, auth, contacts, health, vitals
 
 app = FastAPI(title="PulseGuard AI API", version="1.0.0")
+
+# In-memory, per-IP rate limiter (no external storage needed for a
+# single-instance Railway deployment). The Limiter instance itself is
+# defined in app/routers/auth.py (and used there via @auth.limiter.limit(...))
+# to avoid a main<->auth circular import; it's attached to app.state here
+# so slowapi's middleware/exception handler can find it.
+app.state.limiter = auth.limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 app.add_middleware(
     CORSMiddleware,

@@ -6,6 +6,7 @@ from __future__ import annotations
 import hmac
 import re
 import secrets
+from datetime import datetime, timedelta, timezone
 from hashlib import scrypt
 from typing import Optional
 
@@ -13,6 +14,10 @@ from . import db
 
 _EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 _PHONE_RE = re.compile(r"^\+\d{8,15}$")
+
+# Bearer session tokens expire after this many days. A stolen/leaked token
+# is only useful for this window rather than forever.
+SESSION_TTL_DAYS = 30
 
 
 class AuthError(ValueError):
@@ -83,7 +88,11 @@ def authenticate(email: str, password: str) -> Optional[dict]:
 
 def create_session(user_id: int) -> str:
     token = secrets.token_hex(32)
-    db.execute("INSERT INTO sessions (token, user_id) VALUES (?, ?)", (token, user_id))
+    expires_at = (datetime.now(timezone.utc) + timedelta(days=SESSION_TTL_DAYS)).isoformat()
+    db.execute(
+        "INSERT INTO sessions (token, user_id, expires_at) VALUES (?, ?, ?)",
+        (token, user_id, expires_at),
+    )
     return token
 
 
@@ -92,12 +101,23 @@ def get_user_by_token(token: Optional[str]) -> Optional[dict]:
         return None
     row = db.fetch_one(
         """
-        SELECT u.* FROM sessions s
+        SELECT u.*, s.expires_at AS session_expires_at FROM sessions s
         JOIN users u ON u.id = s.user_id
         WHERE s.token = ?
         """,
         (token,),
     )
+    if not row:
+        return None
+
+    now = datetime.now(timezone.utc).isoformat()
+    expires_at = row["session_expires_at"]
+    # NULL/'' expires_at covers sessions created before this column existed
+    # (or the pre-column-add window) — treat as expired rather than immortal.
+    if not expires_at or expires_at <= now:
+        db.execute("DELETE FROM sessions WHERE token = ?", (token,))
+        return None
+
     return _public_user(row)
 
 

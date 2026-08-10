@@ -13,8 +13,16 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS sessions (
   token TEXT PRIMARY KEY,
   user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  created_at TEXT NOT NULL DEFAULT (now()::text)
+  created_at TEXT NOT NULL DEFAULT (now()::text),
+  expires_at TEXT NOT NULL DEFAULT ''
 );
+
+-- Idempotent upgrade path: the sessions table pre-dates expires_at in
+-- production, so CREATE TABLE IF NOT EXISTS above won't add the column to
+-- an existing table. NULL/'' expires_at is treated as "already expired" by
+-- the app (see app/security.py get_user_by_token), so old sessions issued
+-- before this migration are safely invalidated rather than left immortal.
+ALTER TABLE sessions ADD COLUMN IF NOT EXISTS expires_at TEXT;
 
 CREATE TABLE IF NOT EXISTS emergency_contacts (
   id SERIAL PRIMARY KEY,

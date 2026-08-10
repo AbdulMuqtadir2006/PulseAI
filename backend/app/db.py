@@ -39,24 +39,51 @@ def _get_conn() -> "psycopg2.extensions.connection":
     return _connection
 
 
-def fetch_one(sql: str, params: Sequence[Any] = ()) -> Optional[dict]:
+def _with_retry(fn):
+    """Runs fn(conn) while holding _lock. Postgres connections get dropped
+    periodically in cloud environments (network blips, Railway restarts/
+    failovers, idle timeouts) — when that happens psycopg2 raises
+    OperationalError/InterfaceError on the next query, and since _connection
+    is cached as a module global every later call would otherwise keep
+    hitting the same dead connection forever. So on that error we discard
+    the cached connection, reconnect, and retry fn exactly once. If the
+    retry also fails (e.g. the database is genuinely down), the error
+    propagates to the caller instead of being swallowed."""
+    global _connection
     with _lock:
         conn = _get_conn()
+        try:
+            return fn(conn)
+        except (psycopg2.OperationalError, psycopg2.InterfaceError):
+            _connection = None
+            conn = _get_conn()
+            return fn(conn)
+
+
+def fetch_one(sql: str, params: Sequence[Any] = ()) -> Optional[dict]:
+    pg_sql = _to_pg(sql)
+
+    def _run(conn: "psycopg2.extensions.connection") -> Optional[dict]:
         with conn.cursor() as cur:
-            cur.execute(_to_pg(sql), params)
+            cur.execute(pg_sql, params)
             row = cur.fetchone()
             conn.commit()
             return dict(row) if row is not None else None
 
+    return _with_retry(_run)
+
 
 def fetch_all(sql: str, params: Sequence[Any] = ()) -> list[dict]:
-    with _lock:
-        conn = _get_conn()
+    pg_sql = _to_pg(sql)
+
+    def _run(conn: "psycopg2.extensions.connection") -> list[dict]:
         with conn.cursor() as cur:
-            cur.execute(_to_pg(sql), params)
+            cur.execute(pg_sql, params)
             rows = cur.fetchall()
             conn.commit()
             return [dict(r) for r in rows]
+
+    return _with_retry(_run)
 
 
 def execute(sql: str, params: Sequence[Any] = ()) -> Optional[int]:
@@ -64,8 +91,8 @@ def execute(sql: str, params: Sequence[Any] = ()) -> Optional[int]:
     clause (used on INSERTs where the caller needs the new row's id),
     returns that row's "id" column; otherwise returns None."""
     pg_sql = _to_pg(sql)
-    with _lock:
-        conn = _get_conn()
+
+    def _run(conn: "psycopg2.extensions.connection") -> Optional[int]:
         with conn.cursor() as cur:
             cur.execute(pg_sql, params)
             new_id = None
@@ -74,6 +101,8 @@ def execute(sql: str, params: Sequence[Any] = ()) -> Optional[int]:
                 new_id = row["id"] if row else None
             conn.commit()
             return new_id
+
+    return _with_retry(_run)
 
 
 def init_schema() -> None:

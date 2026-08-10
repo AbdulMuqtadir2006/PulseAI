@@ -33,6 +33,31 @@ CORS_ORIGINS = [
     for origin in os.getenv("CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173").split(",")
     if origin.strip()
 ]
+# Note: the list-comp above already guards against stray empty strings (e.g. a
+# trailing comma or "http://a,,http://b") via `if origin.strip()`, so those can't
+# slip through as an accidental "" entry.
+
+# Defense in depth: main.py wires CORS_ORIGINS into Starlette's CORSMiddleware
+# with allow_credentials=True. Per the CORS spec, browsers actually reject
+# "Access-Control-Allow-Origin: *" when credentials are involved — but that's a
+# browser-side backstop, not something we should rely on. Some middleware
+# versions/configs respond to allow_origins=["*"] + allow_credentials=True by
+# reflecting the literal request Origin header back on every request, which is
+# equivalent to allowing any origin with credentials — a silent, hard-to-notice
+# hole if someone sets CORS_ORIGINS="*" in the Railway dashboard as a "just
+# allow everything" shortcut. Since this is about to run in production and a
+# broken CORS policy won't show up as an obvious error (requests just quietly
+# succeed cross-origin), we hard-fail at startup rather than strip-and-warn:
+# a crashed deploy gets noticed immediately, a swallowed log line does not.
+if "*" in CORS_ORIGINS:
+    raise RuntimeError(
+        "CORS_ORIGINS must not contain '*' when allow_credentials=True is used "
+        "(see main.py's CORSMiddleware setup) — a wildcard origin combined with "
+        "credentials is a well-known CORS footgun that can effectively disable "
+        "origin checking. Set CORS_ORIGINS to an explicit comma-separated list "
+        "of allowed origins instead, e.g. "
+        "'https://app.example.com,https://admin.example.com'."
+    )
 
 # ---- misc ----
 SERVICE_PORT = int(os.getenv("PORT", "8000"))
