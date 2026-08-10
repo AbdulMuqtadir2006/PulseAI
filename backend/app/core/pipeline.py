@@ -32,6 +32,7 @@ def run_pipeline(user_id: int, values: dict[str, float], scenario: str = "normal
         """
         INSERT INTO vitals_readings (user_id, "timestamp", heart_rate, hrv, spo2, systolic, diastolic, scenario)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        RETURNING id
         """,
         (user_id, now, values["heart_rate"], values["hrv"], values["spo2"], values["systolic"], values["diastolic"], scenario),
     )
@@ -47,6 +48,7 @@ def run_pipeline(user_id: int, values: dict[str, float], scenario: str = "normal
         """
         INSERT INTO risk_assessments (reading_id, user_id, risk_score, risk_level, factors_json, narrative, source)
         VALUES (?, ?, ?, ?, ?, ?, ?)
+        RETURNING id
         """,
         (
             reading_id,

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime, timedelta, timezone
 
 from fastapi import APIRouter, Depends
 
@@ -57,13 +58,14 @@ def latest(user: dict = Depends(require_user)):
 @router.get("/vitals")
 def history(hours: int = 24, user: dict = Depends(require_user)):
     hours = max(1, min(24 * 30, hours))
+    cutoff = (datetime.now(timezone.utc) - timedelta(hours=hours)).isoformat()
     rows = db.fetch_all(
         """
         SELECT * FROM vitals_readings
-        WHERE user_id = ? AND "timestamp" >= datetime('now', ?)
+        WHERE user_id = ? AND "timestamp" >= ?
         ORDER BY "timestamp" ASC, id ASC
         """,
-        (user["id"], f"-{hours} hours"),
+        (user["id"], cutoff),
     )
     return [_row_with_risk(r) for r in rows]
 

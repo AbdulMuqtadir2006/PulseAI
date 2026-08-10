@@ -23,7 +23,7 @@ def add_contact(body: ContactIn, user: dict = Depends(require_user)):
     if not phone or len(phone) < 8:
         raise HTTPException(status_code=400, detail="Invalid phone number (include country code, e.g. +1...)")
     contact_id = db.execute(
-        "INSERT INTO emergency_contacts (user_id, name, phone, relationship) VALUES (?, ?, ?, ?)",
+        "INSERT INTO emergency_contacts (user_id, name, phone, relationship) VALUES (?, ?, ?, ?) RETURNING id",
         (user["id"], body.name.strip(), phone, body.relationship.strip()),
     )
     return db.fetch_one("SELECT * FROM emergency_contacts WHERE id = ?", (contact_id,))

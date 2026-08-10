@@ -11,8 +11,8 @@ load_dotenv()
 
 BACKEND_ROOT = Path(__file__).resolve().parent.parent
 
-# ---- database (SQLite — see db.py) ----
-SQLITE_PATH = str(BACKEND_ROOT / os.getenv("SQLITE_PATH", "./data/pulseguard.db").lstrip("./"))
+# ---- database (Postgres — see db.py) ----
+DATABASE_URL = os.getenv("DATABASE_URL", "").strip()
 
 # ---- OpenRouter — one model for the risk narrative ----
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "").strip()

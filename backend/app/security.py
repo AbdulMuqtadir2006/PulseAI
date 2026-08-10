@@ -67,6 +67,7 @@ def create_user(name: str, email: str, password: str, phone: str) -> dict:
         """
         INSERT INTO users (email, name, phone, pass_salt, pass_hash)
         VALUES (?, ?, ?, ?, ?)
+        RETURNING id
         """,
         (norm_email, (name or "").strip(), norm_phone, salt, pass_hash),
     )
