@@ -89,13 +89,15 @@
       linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
     background-size: 56px 56px;
   }
-  /* Single-hue emphasis gradient (crimson -> warm coral) for the one or two
-     words per page that need it — never a multi-hue rainbow. */
-  .text-gradient {
-    background-image: linear-gradient(120deg, #ff3b5c 0%, #ff8a6b 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  /* Traveling-dash effect for the pipeline flowchart's active edges — reads
+     as "data flowing right now" without a WebGL scene. */
+  .pipeline-flow-dash {
+    animation: flow-dash 1.1s linear infinite;
+  }
+  @keyframes flow-dash {
+    to {
+      stroke-dashoffset: -10;
+    }
   }
 
   .pt-safe {

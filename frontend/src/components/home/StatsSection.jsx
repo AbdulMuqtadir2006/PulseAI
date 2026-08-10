@@ -9,18 +9,21 @@ const stats = [
     suffix: "M+",
     label: "Cardiovascular deaths worldwide each year",
     note: "World Health Organization",
+    accent: "#FF3B5C", // pulse
   },
   {
     value: 1,
     prefix: "#",
     label: "Leading cause of death globally",
     note: "Ahead of every cancer combined",
+    accent: "#F2A93E", // amber
   },
   {
     value: 0,
     display: "Minutes",
     label: "Is often the entire warning window",
     note: "Before symptoms are noticed or acted on",
+    accent: "#1FD8AA", // teal
   },
 ];
 
@@ -28,7 +31,8 @@ export function StatsSection() {
   return (
     <Section
       id="why"
-      eyebrow="Why This Matters"
+      kicker="01"
+      eyebrow="Why this matters"
       title="Most warning signs go unnoticed — that's the actual problem."
       intro="Cardiac events rarely arrive without warning. The signal is usually there in heart rate, HRV, oxygen, and blood pressure hours before — the gap is that nobody's watching continuously."
     >
@@ -40,7 +44,12 @@ export function StatsSection() {
         viewport={{ once: true, margin: "0px 0px -15% 0px" }}
       >
         {stats.map((s) => (
-          <motion.div key={s.label} variants={staggerItem} className="glass-card p-7">
+          <motion.div
+            key={s.label}
+            variants={staggerItem}
+            className="glass-card border-l-2 p-7"
+            style={{ borderLeftColor: s.accent }}
+          >
             <p className="font-mono text-4xl font-bold text-white sm:text-5xl">
               {s.prefix}
               {s.display ? s.display : <AnimatedNumber value={s.value} />}

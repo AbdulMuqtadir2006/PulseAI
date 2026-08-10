@@ -49,7 +49,8 @@ export function FeaturesSection() {
   return (
     <Section
       id="features"
-      eyebrow="What It Does"
+      kicker="03"
+      eyebrow="What it does"
       title="Four agents, one continuous watch."
       intro="The same shape as the pipeline below — a small set of transparent, explainable steps rather than one opaque black-box model."
     >

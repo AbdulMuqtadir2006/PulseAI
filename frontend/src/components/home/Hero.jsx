@@ -2,7 +2,7 @@ import { ArrowRight, Activity } from "lucide-react";
 import { motion } from "framer-motion";
 import { Reveal } from "../ui/Reveal";
 import { MagneticButton } from "../ui/MagneticButton";
-import { HeroPulse3D } from "../three/HeroPulse";
+import { HeroTrace } from "./HeroTrace";
 
 export function Hero() {
   return (
@@ -17,7 +17,15 @@ export function Hero() {
 
           <Reveal delay={0.08}>
             <h1 className="mt-6 text-balance font-display text-5xl font-extrabold leading-[1.03] tracking-tight text-white sm:text-6xl md:text-7xl">
-              Catch it <span className="text-gradient">before</span> it happens.
+              Catch it{" "}
+              <span className="relative inline-block text-pulse">
+                before
+                <span
+                  className="absolute inset-x-0 -bottom-1 h-[0.12em] rounded-full bg-pulse/35"
+                  aria-hidden="true"
+                />
+              </span>{" "}
+              it happens.
             </h1>
           </Reveal>
 
@@ -54,8 +62,7 @@ export function Hero() {
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
           className="relative h-[320px] sm:h-[420px] lg:h-[480px]"
         >
-          <div className="pointer-events-none absolute inset-0 rounded-[2rem] bg-gradient-to-br from-pulse/10 via-transparent to-teal/10 blur-2xl" />
-          <HeroPulse3D className="h-full w-full" />
+          <HeroTrace className="h-full w-full" />
         </motion.div>
       </div>
     </section>

@@ -6,7 +6,7 @@ import { Footer } from "./components/layout/Footer";
 import { ScrollToTop } from "./components/layout/ScrollToTop";
 import { RouteFallback } from "./components/ui/RouteFallback";
 import { RequireAuth } from "./components/auth/RequireAuth";
-import { SiteAmbient } from "./components/three/SiteAmbient";
+import { SiteAmbient } from "./components/ambient/SiteAmbient";
 
 const Home = lazy(() => import("./pages/Home"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));

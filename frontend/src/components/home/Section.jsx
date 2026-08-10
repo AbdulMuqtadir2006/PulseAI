@@ -1,6 +1,9 @@
 import { Reveal } from "../ui/Reveal";
 
-export function Section({ id, eyebrow, title, intro, children, className = "" }) {
+// A numbered kicker ("01 — Why this matters") replaces the old pill+dot
+// eyebrow badge that used to repeat identically on every section — one
+// consistent, editorial marker instead of the same widget stamped five times.
+export function Section({ id, kicker, eyebrow, title, intro, children, className = "" }) {
   return (
     <section id={id} className={`relative z-10 py-24 sm:py-32 ${className}`}>
       <div className="container-page">
@@ -8,7 +11,15 @@ export function Section({ id, eyebrow, title, intro, children, className = "" })
           <div className="mb-14 max-w-2xl">
             {eyebrow && (
               <Reveal>
-                <p className="eyebrow mb-4">{eyebrow}</p>
+                <div className="mb-4 flex items-center gap-3">
+                  {kicker && (
+                    <span className="font-mono text-sm font-semibold text-pulse">{kicker}</span>
+                  )}
+                  <span className="h-px w-8 bg-white/15" aria-hidden="true" />
+                  <p className="font-mono text-xs font-medium uppercase tracking-[0.2em] text-white/45">
+                    {eyebrow}
+                  </p>
+                </div>
               </Reveal>
             )}
             {title && (

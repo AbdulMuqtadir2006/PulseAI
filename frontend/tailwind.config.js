@@ -78,6 +78,10 @@ export default {
         // Vercel/Linear do it, not from a floating drop-shadow.
         "glow-sm": "0 0 0 1px rgba(255,59,92,0.15), 0 4px 24px -8px rgba(255,59,92,0.35)",
         glow: "0 0 0 1px rgba(255,59,92,0.2), 0 8px 40px -10px rgba(255,59,92,0.5)",
+        // Neutral (non-pulse-tinted) elevation for hover states that aren't
+        // signaling an alert — plain cards lifting, not glowing.
+        lift: "0 12px 32px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06)",
+        card: "0 8px 24px -8px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.06)",
       },
       keyframes: {
         "pulse-ring": {

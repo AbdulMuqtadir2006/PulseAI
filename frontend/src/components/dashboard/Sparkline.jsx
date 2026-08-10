@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 
-export function Sparkline({ data, color = "#22E6B8", width = 120, height = 36 }) {
+export function Sparkline({ data, color = "#1FD8AA", width = 120, height = 36 }) {
   const reduced = usePrefersReducedMotion();
   if (!data || data.length < 2) return null;
   const min = Math.min(...data);

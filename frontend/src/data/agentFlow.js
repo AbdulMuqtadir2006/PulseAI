@@ -1,4 +1,4 @@
-// Data source for the 3D pipeline visualization (components/home/AgentFlow3D).
+// Data source for the pipeline flowchart (components/home/PipelineFlow.jsx).
 // Mirrors the real backend pipeline exactly (backend/app/core/pipeline.py):
 // Capture -> Risk Engine -> Guidance, which always surfaces a Dashboard
 // Alert and, only when the reading is critical, also notifies an Emergency

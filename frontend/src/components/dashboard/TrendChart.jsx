@@ -59,22 +59,22 @@ export function TrendChart({ metricKey, data, range, unit, status }) {
             <ReferenceArea
               y1={range[0]}
               y2={range[1]}
-              fill="#22E6B8"
+              fill="#1FD8AA"
               fillOpacity={0.06}
-              stroke="#22E6B8"
+              stroke="#1FD8AA"
               strokeOpacity={0.15}
               strokeDasharray="3 3"
             />
             <XAxis
               dataKey="time"
-              tick={{ fontSize: 11, fill: "#94a3b8", fontFamily: "JetBrains Mono" }}
+              tick={{ fontSize: 11, fill: "rgba(255,255,255,0.35)", fontFamily: "JetBrains Mono" }}
               tickLine={false}
               axisLine={{ stroke: "#ffffff22" }}
               minTickGap={24}
             />
             <YAxis
               domain={[Math.floor(dataMin - pad), Math.ceil(dataMax + pad)]}
-              tick={{ fontSize: 11, fill: "#94a3b8", fontFamily: "JetBrains Mono" }}
+              tick={{ fontSize: 11, fill: "rgba(255,255,255,0.35)", fontFamily: "JetBrains Mono" }}
               tickLine={false}
               axisLine={false}
               width={44}

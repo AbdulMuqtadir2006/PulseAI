@@ -15,7 +15,6 @@ export default defineConfig({
           vendor: ["react", "react-dom", "react-router-dom"],
           motion: ["framer-motion", "gsap"],
           charts: ["recharts"],
-          three: ["three", "@react-three/fiber", "@react-three/drei"],
         },
       },
     },
