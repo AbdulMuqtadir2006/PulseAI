@@ -8,11 +8,26 @@ from ..schemas import LoginReq, SignupReq
 
 router = APIRouter()
 
+
+def _client_ip(request: Request) -> str:
+    """Railway (like most reverse proxies) terminates the connection at its
+    edge and forwards to this app over an internal hop, so request.client.host
+    is Railway's proxy address, not the visitor's — identical for every
+    visitor, which would make a per-IP limit either count everyone as one
+    bucket or (worse) never accumulate if that hop address isn't stable.
+    X-Forwarded-For carries the real originating IP; fall back to
+    get_remote_address for local/direct-connection dev."""
+    forwarded = request.headers.get("x-forwarded-for")
+    if forwarded:
+        return forwarded.split(",")[0].strip()
+    return get_remote_address(request)
+
+
 # Per-IP, in-memory rate limiter for the unauthenticated auth endpoints
 # (signup/login), which have no bearer-token protection and are
 # otherwise open to credential-stuffing / signup spam. Attached to
 # app.state.limiter in app/main.py.
-limiter = Limiter(key_func=get_remote_address)
+limiter = Limiter(key_func=_client_ip)
 
 
 @router.post("/signup", status_code=201)
