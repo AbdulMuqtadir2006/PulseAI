@@ -17,7 +17,9 @@ DATABASE_URL = os.getenv("DATABASE_URL", "").strip()
 # ---- OpenRouter — one model for the risk narrative ----
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "").strip()
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
-OPENROUTER_MODEL = os.getenv("OPENROUTER_MODEL", "deepseek/deepseek-chat-v3.1").strip()
+# Pinned to DeepSeek's cheap chat model — not env-configurable, so a stray
+# env var can't silently switch this to a pricier model (e.g. R1).
+OPENROUTER_MODEL = "deepseek/deepseek-chat-v3.1"
 OPENROUTER_TIMEOUT_SECONDS = max(15, int(os.getenv("OPENROUTER_TIMEOUT_SECONDS", "60")))
 AI_ENABLED = bool(OPENROUTER_API_KEY.startswith("sk-or-"))
 
