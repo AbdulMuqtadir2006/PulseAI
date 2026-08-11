@@ -7,8 +7,10 @@ const columns = [
     title: "Product",
     links: [
       { label: "Dashboard", to: "/dashboard" },
+      { label: "Voice summary", to: "/voice" },
+      { label: "Report", to: "/report" },
+      { label: "Self-care", to: "/self-care" },
       { label: "Alerts", to: "/alerts" },
-      { label: "Emergency contacts", to: "/contacts" },
     ],
   },
   {

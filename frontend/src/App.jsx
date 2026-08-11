@@ -11,7 +11,9 @@ import { SiteAmbient } from "./components/ambient/SiteAmbient";
 const Home = lazy(() => import("./pages/Home"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Alerts = lazy(() => import("./pages/Alerts"));
-const Contacts = lazy(() => import("./pages/Contacts"));
+const Voice = lazy(() => import("./pages/Voice"));
+const Reports = lazy(() => import("./pages/Reports"));
+const SelfCare = lazy(() => import("./pages/SelfCare"));
 const ComingSoon = lazy(() => import("./pages/ComingSoon"));
 const Login = lazy(() => import("./pages/Login"));
 const Signup = lazy(() => import("./pages/Signup"));
@@ -42,7 +44,9 @@ export default function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/dashboard" element={gated(<Dashboard />)} />
               <Route path="/alerts" element={gated(<Alerts />)} />
-              <Route path="/contacts" element={gated(<Contacts />)} />
+              <Route path="/voice" element={gated(<Voice />)} />
+              <Route path="/report" element={gated(<Reports />)} />
+              <Route path="/self-care" element={gated(<SelfCare />)} />
               <Route path="*" element={<ComingSoon />} />
             </Routes>
           </AnimatePresence>

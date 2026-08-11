@@ -1,12 +1,26 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X, LogOut, LogIn } from "lucide-react";
+import { Menu, X, LogOut, LogIn, Languages } from "lucide-react";
 import { navLinks } from "./navLinks";
 import { Wordmark } from "../ui/Wordmark";
 import { useAuth } from "../../auth/AuthContext";
+import { useLang } from "../../i18n/LanguageContext";
 
 const EASE = [0.16, 1, 0.3, 1];
+
+function LangToggle({ className = "" }) {
+  const { toggleLang, t } = useLang();
+  return (
+    <button
+      type="button"
+      onClick={toggleLang}
+      className={`inline-flex items-center gap-1.5 rounded-full border border-white/20 px-3 py-1.5 text-sm font-medium text-white/80 transition-colors duration-200 hover:border-teal/50 hover:text-white ${className}`}
+    >
+      <Languages size={15} /> {t("common.langToggle")}
+    </button>
+  );
+}
 
 function AuthControl() {
   const { user, logout } = useAuth();
@@ -106,6 +120,7 @@ export function Navbar() {
           <div className="flex items-center gap-3">
             <DesktopLinks />
             <div className="hidden items-center gap-3 md:flex">
+              <LangToggle />
               <AuthControl />
             </div>
             <button
@@ -153,6 +168,7 @@ export function Navbar() {
                 </motion.div>
               ))}
               <div className="mt-8 flex items-center gap-3">
+                <LangToggle />
                 <AuthControl />
               </div>
             </div>

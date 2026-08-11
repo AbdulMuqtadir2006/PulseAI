@@ -40,13 +40,19 @@ export const getVitalsHistory = (hours = 24) => req(`/vitals?hours=${hours}`);
 export const simulateReading = (scenario = "normal") =>
   req("/vitals/simulate", { method: "POST", body: JSON.stringify({ scenario }) });
 
-// ---- emergency contacts ----
-export const getContacts = () => req("/contacts");
-export const addContact = (payload) =>
-  req("/contacts", { method: "POST", body: JSON.stringify(payload) });
-export const deleteContact = (id) => req(`/contacts/${id}`, { method: "DELETE" });
-
 // ---- alerts ----
 export const getAlerts = () => req("/alerts");
 
 export const getHealth = () => req("/health");
+
+// ---- content agents: voice / report / self-care / chat ----
+export const getVoiceScript = (lang = "en") =>
+  req("/voice-script", { method: "POST", body: JSON.stringify({ lang }) });
+export const getReport = (lang = "en") =>
+  req("/report", { method: "POST", body: JSON.stringify({ lang }) });
+export const getSelfCare = (lang = "en") =>
+  req("/self-care", { method: "POST", body: JSON.stringify({ lang }) });
+export const getChat = () => req("/chat");
+export const sendChat = (message, lang = "en") =>
+  req("/chat", { method: "POST", body: JSON.stringify({ message, lang }) });
+export const resetChat = () => req("/chat", { method: "DELETE" });

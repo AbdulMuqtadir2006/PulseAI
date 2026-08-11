@@ -13,7 +13,7 @@ export function Field({ label, type = "text", value, onChange, hint, ...rest }) 
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-[15px] text-white outline-none transition-colors duration-150 ease-expo placeholder:text-white/25 focus:border-pulse/50 focus:bg-white/[0.05]"
+        className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-base text-white outline-none transition-colors duration-150 ease-expo placeholder:text-white/25 focus:border-pulse/50 focus:bg-white/[0.05] sm:text-[15px]"
         {...rest}
       />
       {hint && <span className="mt-1.5 block text-xs text-white/40">{hint}</span>}
