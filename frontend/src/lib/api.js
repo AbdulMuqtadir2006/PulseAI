@@ -48,25 +48,6 @@ export const getHealth = () => req("/health");
 // ---- content agents: voice / report / self-care / chat ----
 export const getVoiceScript = (lang = "en") =>
   req("/voice-script", { method: "POST", body: JSON.stringify({ lang }) });
-
-// Server-synthesized audio (espeak-ng) — used so spoken playback doesn't
-// depend on the device having a matching OS/browser voice installed.
-export async function getVoiceAudioBlob(text, lang = "en") {
-  const token = getToken();
-  const res = await fetch(`${API_BASE}/api/voice-audio`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    },
-    body: JSON.stringify({ text, lang }),
-  });
-  if (!res.ok) {
-    const body = await res.json().catch(() => ({}));
-    throw new Error(body.detail || body.error || `Request failed: ${res.status}`);
-  }
-  return res.blob();
-}
 export const getReport = (lang = "en") =>
   req("/report", { method: "POST", body: JSON.stringify({ lang }) });
 export const getSelfCare = (lang = "en") =>

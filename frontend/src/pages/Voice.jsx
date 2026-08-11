@@ -18,10 +18,7 @@ export default function Voice() {
   const script = scriptData?.script ?? "";
   const source = scriptData?.source ?? "fallback";
 
-  const { supported, speaking, paused, charIndex, error: speechError, play, pause, resume, stop } = useSpeech(
-    script,
-    lang
-  );
+  const { supported, speaking, paused, charIndex, hasVoiceForLang, play, pause, resume, stop } = useSpeech(script, lang);
 
   const playStartedAt = useRef(null);
   const wasSpeaking = useRef(false);
@@ -66,12 +63,6 @@ export default function Voice() {
     }
     wasSpeaking.current = speaking;
   }, [speaking, script]);
-
-  // The hook also reports outright failures directly (e.g. the server-audio
-  // fetch for Arabic failing) — surface those through the same UI message.
-  useEffect(() => {
-    if (speechError) setPlaybackFailed(true);
-  }, [speechError]);
 
   const handlePlay = () => {
     setPlaybackFailed(false);
@@ -150,6 +141,11 @@ export default function Voice() {
               </div>
             )}
 
+            {supported && lang === "ar" && !hasVoiceForLang && (
+              <p className="flex items-center gap-2 text-sm text-amber">
+                <AlertTriangle size={16} /> {t("voice.noVoiceForLang")}
+              </p>
+            )}
             {playbackFailed && (
               <p className="flex items-center gap-2 text-sm text-pulse">
                 <AlertTriangle size={16} /> {t("voice.playbackFailed")}

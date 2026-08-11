@@ -47,11 +47,6 @@ class LangReq(BaseModel):
     lang: Lang = "en"
 
 
-class VoiceAudioReq(BaseModel):
-    text: str = Field(min_length=1, max_length=4000)
-    lang: Lang = "en"
-
-
 class ChatSendReq(BaseModel):
     message: str
     lang: Lang = "en"

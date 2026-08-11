@@ -42,7 +42,8 @@ export const en = {
     resume: "Resume",
     replay: "Replay",
     unsupported: "Your browser doesn't support speech synthesis.",
-    playbackFailed: "Playback failed to produce audio — try Replay, or check your connection.",
+    noVoiceForLang: "No Arabic voice was found on this device — playback may use a different voice or fail silently.",
+    playbackFailed: "Playback failed to produce audio — try Replay, or check your device's voice settings.",
   },
   report: {
     eyebrow: "Report",
@@ -137,7 +138,8 @@ export const ar = {
     resume: "استئناف",
     replay: "إعادة",
     unsupported: "متصفحك لا يدعم تحويل النص إلى كلام.",
-    playbackFailed: "فشل التشغيل في إنتاج صوت — جرّب الإعادة، أو تحقق من اتصالك بالإنترنت.",
+    noVoiceForLang: "لم يتم العثور على صوت عربي على هذا الجهاز — قد يستخدم التشغيل صوتاً مختلفاً أو يفشل بصمت.",
+    playbackFailed: "فشل التشغيل في إنتاج صوت — جرّب الإعادة، أو تحقق من إعدادات الصوت في جهازك.",
   },
   report: {
     eyebrow: "التقرير",

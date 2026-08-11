@@ -6,12 +6,12 @@ from __future__ import annotations
 import json
 from datetime import datetime, timezone
 
-from fastapi import APIRouter, Depends, HTTPException, Response
+from fastapi import APIRouter, Depends, HTTPException
 
 from .. import db
-from ..core import content_llm, tts
+from ..core import content_llm
 from ..deps import require_user
-from ..schemas import ChatSendReq, LangReq, VoiceAudioReq
+from ..schemas import ChatSendReq, LangReq
 
 router = APIRouter()
 
@@ -68,17 +68,6 @@ def voice_script(body: LangReq, user: dict = Depends(require_user)):
     if not reading or not risk:
         raise HTTPException(status_code=404, detail="no readings")
     return content_llm.voice_agent(reading, risk, body.lang)
-
-
-@router.post("/voice-audio")
-def voice_audio(body: VoiceAudioReq, user: dict = Depends(require_user)):
-    """Synthesize `body.text` server-side (espeak-ng) so playback doesn't
-    depend on the requesting device having a matching OS voice installed."""
-    try:
-        wav_bytes = tts.synthesize(body.text, body.lang)
-    except tts.TTSError as exc:
-        raise HTTPException(status_code=503, detail=str(exc))
-    return Response(content=wav_bytes, media_type="audio/wav")
 
 
 @router.post("/report")

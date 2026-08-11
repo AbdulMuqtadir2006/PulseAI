@@ -1,2 +1,0 @@
-[phases.espeakng]
-aptPkgs = ["espeak-ng"]
