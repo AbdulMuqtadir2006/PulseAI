@@ -100,3 +100,27 @@ def evaluate(values: dict[str, float]) -> dict[str, Any]:
         "range_score": round(range_score, 4),
         "biomarkers": details,
     }
+
+
+# ---- health areas ----
+# Groups the 5 raw biomarkers into 3 physiological areas for the content
+# agents (voice/report/self-care) — same "worst status wins" grouping
+# Novera's reference_data.py uses for its 4 saliva-screening areas, adapted
+# to cardiac vitals. Kept separate from the risk_score/risk_level above:
+# those drive the emergency-alert pipeline, areas are purely for
+# plain-language narrative agents to talk about the reading by region.
+AREA_IDS = ("rhythm", "oxygen", "pressure")
+
+_STATUS_RANK = {"good": 0, "watch": 1, "critical": 2}
+
+
+def _worst_status(a: str, b: str) -> str:
+    return a if _STATUS_RANK[a] >= _STATUS_RANK[b] else b
+
+
+def health_areas(biomarkers: dict[str, Any]) -> dict[str, str]:
+    return {
+        "rhythm": _worst_status(biomarkers["heart_rate"]["status"], biomarkers["hrv"]["status"]),
+        "oxygen": biomarkers["spo2"]["status"],
+        "pressure": _worst_status(biomarkers["systolic"]["status"], biomarkers["diastolic"]["status"]),
+    }

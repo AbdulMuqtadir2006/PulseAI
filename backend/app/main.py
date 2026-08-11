@@ -7,7 +7,7 @@ from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 
 from . import config, db
-from .routers import alerts, auth, contacts, health, vitals
+from .routers import alerts, auth, contacts, content_agents, health, vitals
 
 app = FastAPI(title="PulseGuard AI API", version="1.0.0")
 
@@ -38,6 +38,7 @@ app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 app.include_router(vitals.router, prefix="/api", tags=["vitals"])
 app.include_router(contacts.router, prefix="/api", tags=["contacts"])
 app.include_router(alerts.router, prefix="/api", tags=["alerts"])
+app.include_router(content_agents.router, prefix="/api", tags=["content"])
 
 
 if __name__ == "__main__":

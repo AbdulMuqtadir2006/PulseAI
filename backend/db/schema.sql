@@ -73,3 +73,24 @@ CREATE TABLE IF NOT EXISTS alert_events (
   created_at TEXT NOT NULL DEFAULT (now()::text)
 );
 CREATE INDEX IF NOT EXISTS idx_alerts_user_time ON alert_events(user_id, created_at);
+
+-- One context row per user (diagnosis/medications/notes the chat agent
+-- maintains) — a per-user singleton, unlike Novera's single global row,
+-- since PulseGuard is multi-tenant.
+CREATE TABLE IF NOT EXISTS patient_context (
+  user_id INTEGER PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+  diagnosis TEXT NOT NULL DEFAULT '',
+  medications TEXT NOT NULL DEFAULT '',
+  notes TEXT NOT NULL DEFAULT '',
+  updated_at TEXT NOT NULL DEFAULT (now()::text)
+);
+
+CREATE TABLE IF NOT EXISTS chat_messages (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  role TEXT NOT NULL,
+  content TEXT NOT NULL,
+  lang TEXT NOT NULL DEFAULT 'en',
+  created_at TEXT NOT NULL DEFAULT (now()::text)
+);
+CREATE INDEX IF NOT EXISTS idx_chat_user_time ON chat_messages(user_id, id);
