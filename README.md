@@ -40,6 +40,18 @@ There's no real wearable behind this — the dashboard's "Normal / Elevated / Si
 buttons generate plausible readings (`backend/app/core/demo_data.py`) to drive the same real
 scoring/narrative/alert pipeline a genuine device would.
 
+## Codespaces (cloud dev environment, no local disk usage)
+
+This repo has a `.devcontainer/` config: open it in a GitHub Codespace and everything — Node,
+Python, and a Postgres instance — spins up in the cloud, nothing installed on your machine.
+
+1. On GitHub: **Code → Codespaces → Create codespace on main**.
+2. First boot runs `.devcontainer/setup.sh` automatically (installs both `frontend/` and
+   `backend/` dependencies, creates `.env` files pointed at the devcontainer's own Postgres).
+3. Once it's ready, open a terminal and run `bash .devcontainer/dev.sh` — starts both the backend
+   (`:8000`) and frontend (`:5173`) dev servers together; Codespaces forwards both ports
+   automatically and opens a preview of the frontend.
+
 ## Deploying
 
 Not deployed yet — no hosting/domain/CI set up. Frontend is a static Vite build (deployable
